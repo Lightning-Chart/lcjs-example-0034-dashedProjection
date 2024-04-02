@@ -27,7 +27,7 @@ const axisY = chart
     // Configure Y axis formatting as "100 k€"
     .setTickStrategy(AxisTickStrategies.Numeric, (ticks) => ticks.setFormattingFunction((euros) => `${(euros / 1000).toFixed(0)} k€`))
 
-fetch(document.head.baseURI + 'examples/assets/0034/revenue.json')
+fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'examples/assets/0034/revenue.json')
     .then((r) => r.json())
     .then((revenueData) => {
         const tNow = Date.now()

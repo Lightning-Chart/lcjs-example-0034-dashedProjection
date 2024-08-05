@@ -2,7 +2,7 @@
  * Example showcasing use of `DashedLine` style to reflect a projected (or _predicted_) time trend.
  */
 
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 const { lightningChart, Themes, AxisTickStrategies, emptyLine, DashedLine, StipplePatterns } = lcjs
 
@@ -32,7 +32,7 @@ const axisY = chart
 fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'examples/assets/0034/revenue.json')
     .then((r) => r.json())
     .then((revenueData) => {
-        const tNow = Date.now()
+        const tNow = 1664456233537
         const dataPast = revenueData.filter((p) => p.x <= tNow)
         const dataProjection = revenueData.filter((p) => p.x > tNow)
         dataProjection.unshift(dataPast[dataPast.length - 1])
@@ -68,7 +68,4 @@ fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pat
             .setValue(dataProjection[0].x)
             .setTickLength(20)
             .setTextFormatter((_) => 'Today')
-
-        axisX.fit()
-        axisY.fit()
     })

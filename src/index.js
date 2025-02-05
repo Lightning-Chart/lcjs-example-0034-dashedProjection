@@ -4,7 +4,7 @@
 
 const lcjs = require('@lightningchart/lcjs')
 
-const { lightningChart, Themes, AxisTickStrategies, emptyLine, DashedLine, StipplePatterns } = lcjs
+const { lightningChart, Themes, emptyFill, AxisTickStrategies, emptyLine, DashedLine, StipplePatterns } = lcjs
 
 const chart = lightningChart({
             resourcesBaseUrl: new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'resources/',
@@ -38,12 +38,13 @@ fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pat
         dataProjection.unshift(dataPast[dataPast.length - 1])
 
         const seriesPast = chart
-            .addLineSeries({ dataPattern: { pattern: 'ProgressiveX' } })
-            .add(dataPast)
+            .addPointLineAreaSeries({ dataPattern: 'ProgressiveX', automaticColorIndex: 0 })
+            .appendJSON(dataPast)
             .setName('Revenue (past)')
+            .setAreaFillStyle(emptyFill)
         const seriesProjection = chart
-            .addLineSeries({ dataPattern: { pattern: 'ProgressiveX' }, automaticColorIndex: 0 })
-            .add(dataProjection)
+            .addPointLineAreaSeries({ dataPattern: 'ProgressiveX', automaticColorIndex: 0 })
+            .appendJSON(dataProjection)
             .setStrokeStyle(
                 (stroke) =>
                     new DashedLine({
@@ -54,13 +55,14 @@ fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pat
                     }),
             )
             .setName('Revenue (projected)')
+            .setAreaFillStyle(emptyFill)
 
         axisX
             .addBand()
             .setValueStart(dataProjection[0].x)
             .setValueEnd(dataProjection[dataProjection.length - 1].x)
             .setStrokeStyle(emptyLine)
-            .setMouseInteractions(false)
+            .setPointerEvents(false)
             .setEffect(false)
 
         axisX

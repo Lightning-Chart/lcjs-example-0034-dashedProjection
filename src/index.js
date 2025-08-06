@@ -10,6 +10,7 @@ const chart = lightningChart({
             resourcesBaseUrl: new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'resources/',
         })
     .ChartXY({
+        legend: { visible: false },
         theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
     })
     .setTitle('Historical and projected revenue')
@@ -37,13 +38,9 @@ fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pat
         const dataProjection = revenueData.filter((p) => p.x > tNow)
         dataProjection.unshift(dataPast[dataPast.length - 1])
 
-        const seriesPast = chart
-            .addPointLineAreaSeries({ dataPattern: 'ProgressiveX', automaticColorIndex: 0 })
-            .appendJSON(dataPast)
-            .setName('Revenue (past)')
-            .setAreaFillStyle(emptyFill)
+        const seriesPast = chart.addLineSeries({ automaticColorIndex: 0 }).appendJSON(dataPast).setName('Revenue (past)')
         const seriesProjection = chart
-            .addPointLineAreaSeries({ dataPattern: 'ProgressiveX', automaticColorIndex: 0 })
+            .addLineSeries({ automaticColorIndex: 0 })
             .appendJSON(dataProjection)
             .setStrokeStyle(
                 (stroke) =>
@@ -55,7 +52,6 @@ fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pat
                     }),
             )
             .setName('Revenue (projected)')
-            .setAreaFillStyle(emptyFill)
 
         axisX
             .addBand()

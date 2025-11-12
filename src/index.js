@@ -4,7 +4,7 @@
 
 const lcjs = require('@lightningchart/lcjs')
 
-const { lightningChart, Themes, emptyFill, AxisTickStrategies, emptyLine, DashedLine, StipplePatterns } = lcjs
+const { lightningChart, Themes, emptyFill, AxisTickStrategies, emptyLine, DashedLine, StipplePatterns, SolidFill, SolidLine, ColorRGBA } = lcjs
 
 const chart = lightningChart({
             resourcesBaseUrl: new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'resources/',
@@ -53,10 +53,32 @@ fetch(new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pat
             )
             .setName('Revenue (projected)')
 
+        const rangeData = dataProjection.map((p, i) => {
+            const step = Math.floor(i / 5)
+            const factor = 0.02 + step * 0.002
+            return {
+                x: p.x,
+                yLow: p.y * (1 - factor),
+                yHigh: p.y * (1 + factor)
+            }
+        })
+
+        const predictionRange = chart.addAreaRangeSeries()
+        predictionRange
+            .setHighFillStyle(new SolidFill({ color: ColorRGBA(255, 255, 75).setA(75) }))
+            .setHighStrokeStyle(new SolidLine().setFillStyle(emptyFill).setThickness(0))
+            .setLowStrokeStyle(new SolidLine().setFillStyle(emptyFill).setThickness(0))
+            .setName('Projection range')
+
+        rangeData.forEach((point, i) => {
+            predictionRange.add({ position: point.x, high: point.yHigh, low: point.yLow })
+        })
+
         axisX
             .addBand()
             .setValueStart(dataProjection[0].x)
             .setValueEnd(dataProjection[dataProjection.length - 1].x)
+            .setFillStyle((solidFill) => solidFill.setA(25))
             .setStrokeStyle(emptyLine)
             .setPointerEvents(false)
             .setEffect(false)

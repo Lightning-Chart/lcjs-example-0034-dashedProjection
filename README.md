@@ -1,6 +1,6 @@
-# JavaScript Dashed Line Projection Chart
+# JavaScript Dashed Line Prediction Chart
 
-![JavaScript Dashed Line Projection Chart](dashedProjection-darkGold.png)
+![JavaScript Dashed Line Prediction Chart](dashedProjection-darkGold.png)
 
 This demo application belongs to the set of examples for LightningChart JS, data visualization library for JavaScript.
 
@@ -58,9 +58,9 @@ Direct developer email support can be purchased through a [Support Plan][4] or b
 © LightningChart Ltd 2009-2025. All rights reserved.
 
 
-[XY cartesian chart]: https://lightningchart.com/js-charts/api-documentation/v8.0.1/classes/ChartXY.html
-[Line series]: https://lightningchart.com/js-charts/api-documentation/v8.0.1/classes/LineSeries.html
-[Axis]: https://lightningchart.com/js-charts/api-documentation/v8.0.1/classes/Axis.html
-[Band]: https://lightningchart.com/js-charts/api-documentation/v8.0.1/classes/Band.html
-[DashedLine]: https://lightningchart.com/js-charts/api-documentation/v8.0.1/classes/DashedLine.html
+[XY cartesian chart]: https://lightningchart.com/js-charts/api-documentation/v8.1.0/classes/ChartXY.html
+[Line series]: https://lightningchart.com/js-charts/api-documentation/v8.1.0/classes/PointLineAreaSeries.html
+[Axis]: https://lightningchart.com/js-charts/api-documentation/v8.1.0/classes/Axis.html
+[Band]: https://lightningchart.com/js-charts/api-documentation/v8.1.0/classes/Band.html
+[DashedLine]: https://lightningchart.com/js-charts/api-documentation/v8.1.0/classes/DashedLine.html
 
